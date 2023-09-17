@@ -1,10 +1,18 @@
 import { fastify } from "fastify";
+import { fastifyCors } from "@fastify/cors";
+import { getAllPromptsRoute } from "./routes/get-all-prompts";
+import { uploadVideoRoute } from "./routes/upload-video";
+import { createTranscriptionRoute } from "./routes/create-transcription";
 
 const app = fastify()
 
-app.get('/', () => {
- return 'Hello World'
+app.register(fastifyCors, {
+ origin: '*',
 })
+
+app.register(getAllPromptsRoute)
+app.register(uploadVideoRoute)
+app.register(createTranscriptionRoute)
 
 app.listen({
  port: 3333,
